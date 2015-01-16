@@ -32,6 +32,50 @@ public class IOTest {
 
 	}
 
+	@Test
+	public void readInputStream() throws Exception {
+
+		InputStream is = new ByteArrayInputStream( "data_read".getBytes() );
+
+		byte[] read = IO.read( is );
+
+		assertEquals( "bytes read", "data_read", new String( read ) );
+
+	}
+
+	@Test
+	public void readInputStreamCloseThrowsIOException() throws Exception {
+
+		InputStream is = mock( InputStream.class );
+
+		doReturn( -1 ).when( is ).read( any(), anyInt(), anyInt() );
+		doThrow( new IOException( "ERR" ) ).when( is ).close();
+
+		try {
+			IO.read( is );
+			fail( "Read should fail if close throws IOException" );
+		} catch( RuntimeException e ) {
+			assertEquals( "Error message", "java.io.IOException: ERR", e.getMessage() );
+		}
+
+	}
+
+	@Test
+	public void readInputStreamThrowsIOException() throws Exception {
+
+		InputStream is = mock( InputStream.class );
+		doThrow( new IOException( "ERR" ) ).when( is ).read( any(), anyInt(), anyInt() );
+
+		try {
+			IO.read( is );
+			fail( "Read should fail if IOException is thrown" );
+		} catch( RuntimeException e ) {
+			assertEquals( "Error message", "java.io.IOException: ERR", e.getMessage() );
+		}
+
+	}
+
+	@Test
 	public void closeNull() throws Exception {
 
 		IO.close( null );
