@@ -47,7 +47,6 @@ public class ReloadContext {
 
 	public void initWith( final String method, Object... params ) {
 		afterCreate.add( obj -> Reflect.invoke( method, obj, params ) );
-
 	}
 
 	public void beforeClose( final String method, Object... params ) {
