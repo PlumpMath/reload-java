@@ -26,6 +26,19 @@ public class DynamicClassBytesReaderTest {
 	}
 
 	@Test
+	public void readBytesMultiplePaths() {
+
+		DynamicClassBytesReader reader = new DynamicClassBytesReader( "build/classes/test",
+				"build/classes/main" );
+
+		assertTrue( "No class bytes read from test classpath",
+				0 < reader.readBytes( DynamicClassBytesReaderTest.class.getName() ).length );
+		assertTrue( "No class bytes read from main classpath",
+				0 < reader.readBytes( DynamicClassBytesReader.class.getName() ).length );
+
+	}
+
+	@Test
 	public void constructInvalidClassPath() {
 
 		try {
