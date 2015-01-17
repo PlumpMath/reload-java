@@ -1,5 +1,7 @@
 package reload.util;
 
+import java.util.Collection;
+
 public interface Lambda {
 
 	static interface F<T> {
@@ -16,6 +18,10 @@ public interface Lambda {
 
 	static interface P1<A> {
 		void e( A a );
+	}
+
+	public static void invokeAll( Collection<P1<Object>> procs, Object parm ) {
+		procs.stream().forEach( proc -> proc.e( parm ) );
 	}
 
 }
