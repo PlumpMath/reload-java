@@ -4,10 +4,22 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
 
 import org.junit.Test;
 
 public class IOTest {
+
+	@Test
+	public void constructorIsPrivate() throws Exception {
+
+		Constructor<IO> constructor = IO.class.getDeclaredConstructor();
+		assertTrue( Modifier.isPrivate( constructor.getModifiers() ) );
+		constructor.setAccessible( true );
+		constructor.newInstance();
+
+	}
 
 	@Test
 	public void readFileNotFound() {

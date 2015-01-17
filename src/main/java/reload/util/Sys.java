@@ -6,9 +6,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Sys {
+public final class Sys {
 
 	private static BufferedReader br;
+
+	private Sys() {
+	}
 
 	public static String readLine() {
 		if( br == null ) {
