@@ -1,7 +1,6 @@
 package reload.util;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -23,6 +22,18 @@ public class DynamicClassBytesReaderTest {
 		DynamicClassBytesReader reader = new DynamicClassBytesReader( "build/classes/test" );
 
 		assertTrue( "No class bytes read", 0 < reader.readBytes( getClass().getName() ).length );
+
+	}
+
+	@Test
+	public void constructInvalidClassPath() {
+
+		try {
+			new DynamicClassBytesReader( "NOT_A_PATH" );
+			fail( "Should fail if class path is invalid" );
+		} catch( Exception e ) {
+			assertEquals( "Error message", "Path does not exist NOT_A_PATH", e.getMessage() );
+		}
 
 	}
 }
