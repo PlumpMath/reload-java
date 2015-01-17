@@ -45,6 +45,35 @@ public final class Reflect {
 		}
 	}
 
+	public static <A> A getFieldValue( String field, Object obj ) {
+		Field fieldFound = getField( field, obj.getClass() );
+		if( fieldFound == null ) {
+			throw new RuntimeException( new NoSuchFieldException( field ) );
+		}
+		return getFieldValue( getField( field, obj.getClass() ), obj );
+	}
+
+	private static <A> A getFieldValue( Field field, Object obj ) {
+		try {
+			return (A) field.get( obj );
+		} catch( IllegalAccessException e ) {
+			throw new RuntimeException( e );
+		}
+	}
+
+	private static Field getField( String name, Class<?> clazz ) {
+		try {
+			return clazz.getDeclaredField( name );
+		} catch( NoSuchFieldException e ) {
+			Class<?> superClass = clazz.getSuperclass();
+			if( Object.class.equals( superClass ) ) {
+				return null;
+			} else {
+				return getField( name, superClass );
+			}
+		}
+	}
+
 	public static Object invoke( String method, Object o, Object... params ) {
 		Method methodFound = getMethod( method, o.getClass() );
 		if( methodFound == null ) {

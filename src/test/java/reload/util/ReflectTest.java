@@ -94,6 +94,31 @@ public class ReflectTest {
 	}
 
 	@Test
+	public void getFieldValueUknown() {
+
+		ClassExample ce = new ClassExample();
+
+		try {
+			Reflect.getFieldValue( "unknownField", ce );
+			fail( "Should fail to get unknownField field" );
+		} catch( RuntimeException e ) {
+			assertEquals( "Error message", "java.lang.NoSuchFieldException: unknownField",
+					e.getMessage() );
+		}
+
+	}
+
+	@Test
+	public void getFieldValueSuper() {
+
+		ChildClass ce = new ChildClass();
+		ce.myfield = "myvalue";
+
+		assertEquals( "fieldValue", "myvalue", Reflect.getFieldValue( "myfield", ce ) );
+
+	}
+
+	@Test
 	public void invokeUnknownMethod() {
 
 		ClassExample ce = new ClassExample();
@@ -160,6 +185,9 @@ class BadClass {
 class PrivateClass {
 	private PrivateClass() {
 	}
+}
+
+class ChildClass extends ClassExample {
 }
 
 class ClassExample {

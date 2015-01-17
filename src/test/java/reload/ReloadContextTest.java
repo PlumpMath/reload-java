@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import reload.util.AClass;
+import reload.util.Reflect;
 
 public class ReloadContextTest {
 
@@ -65,6 +66,54 @@ public class ReloadContextTest {
 		rc.close();
 
 		assertNull("Context should be cleared", rc.context);
+
+	}
+
+	@Test
+	public void initWith() {
+
+		ReloadContext rc = new ReloadContext(AClass.class.getName(), "build/classes/test");
+
+		rc.initWith("before", "value");
+		rc.reload();
+
+		assertTrue("before method should be called",
+				Reflect.getFieldValue("beforeCalled", rc.context));
+
+	}
+
+	@Test
+	public void beforeClose() {
+
+		ReloadContext rc = new ReloadContext(AClass.class.getName(), "build/classes/test");
+
+		rc.beforeClose("after", "value");
+
+		rc.reload();
+		Object context = rc.context;
+		rc.close();
+
+		assertTrue("after method should be called",
+				Reflect.getFieldValue("afterCalled", context));
+
+	}
+
+	@Test
+	public void reloadReplaceOldContext() {
+
+		ReloadContext rc = new ReloadContext(AClass.class.getName(), "build/classes/test");
+
+		rc.initWith("before", "value");
+		rc.beforeClose("after", "value");
+
+		rc.reload();
+		Object context = rc.context;
+		rc.reload();
+
+		assertEquals("count call to context", 1,
+				(int) Reflect.getFieldValue("afterCalledCount", context));
+		assertEquals("count call to context", 1,
+				(int) Reflect.getFieldValue("beforeCalledCount", context));
 
 	}
 }
