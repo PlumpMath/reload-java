@@ -50,6 +50,101 @@ public class ReflectTest {
 		}
 
 	}
+
+	@Test
+	public void setFieldUnknownField() {
+
+		ClassExample ce = new ClassExample();
+
+		try {
+			Reflect.setField( "VALUE", "unknownField", ce );
+			fail( "Should fail to set unknownField" );
+		} catch( RuntimeException e ) {
+			assertEquals( "Error message", "java.lang.NoSuchFieldException: unknownField",
+					e.getMessage() );
+		}
+
+	}
+
+	@Test
+	public void setField() {
+
+		ClassExample ce = new ClassExample();
+
+		Reflect.setField( "VALUE", "myfield", ce );
+
+		assertEquals( "myfield value", "VALUE", ce.myfield );
+
+	}
+
+	@Test
+	public void setFieldPrivate() {
+
+		ClassExample ce = new ClassExample();
+
+		try {
+			Reflect.setField( "VALUE", "privateField", ce );
+			fail( "Should fail to set privateField field" );
+		} catch( RuntimeException e ) {
+			assertEquals( "Error message", "java.lang.IllegalAccessException: "
+					+ "Class reload.util.Reflect can not access a member of "
+					+ "class reload.util.ClassExample with modifiers \"private\"", e.getMessage() );
+		}
+
+	}
+
+	@Test
+	public void invokeUnknownMethod() {
+
+		ClassExample ce = new ClassExample();
+
+		try {
+			Reflect.invoke( "unknownMethod", ce, "HELP" );
+			fail( "Should fail to invoke unknown Method" );
+		} catch( RuntimeException e ) {
+			assertEquals( "Error message", "java.lang.NoSuchMethodException: unknownMethod",
+					e.getMessage() );
+		}
+
+	}
+
+	@Test
+	public void invokePrivateMethod() {
+
+		ClassExample ce = new ClassExample();
+
+		try {
+			Reflect.invoke( "sayPrivate", ce, "HELP" );
+			fail( "Should fail to invoke private Method" );
+		} catch( RuntimeException e ) {
+			assertEquals( "Error message", "java.lang.NoSuchMethodException: sayPrivate",
+					e.getMessage() );
+		}
+
+	}
+
+	@Test
+	public void invokeMethod() {
+
+		ClassExample ce = new ClassExample();
+
+		assertEquals( "Result from invoke 'say'", "hello", Reflect.invoke( "say", ce, "hello" ) );
+
+	}
+
+	@Test
+	public void invokeMethodThowsException() {
+
+		ClassExample ce = new ClassExample();
+
+		try {
+			Reflect.invoke( "sayThrowException", ce, "HELP" );
+			fail( "Should fail to invoke method throwing exception" );
+		} catch( RuntimeException e ) {
+			assertEquals( "Error message", "java.lang.IllegalArgumentException: HELP", e.getMessage() );
+		}
+	}
+
 }
 
 class GodClass {
@@ -64,5 +159,22 @@ class BadClass {
 
 class PrivateClass {
 	private PrivateClass() {
+	}
+}
+
+class ClassExample {
+	String myfield;
+	private String privateField;
+
+	public String say( String msg ) {
+		return sayPrivate( msg );
+	}
+
+	public String sayThrowException( String msg ) {
+		throw new IllegalArgumentException( msg );
+	}
+
+	private String sayPrivate( String msg ) {
+		return msg;
 	}
 }
