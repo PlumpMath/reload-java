@@ -13,7 +13,7 @@ public final class Threads {
 	}
 
 	public static void runStrong( final P proc ) {
-		executorService.execute( ( ) -> proc.e() );
+		executorService.execute( proc::e );
 	}
 
 }
