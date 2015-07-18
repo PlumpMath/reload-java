@@ -20,8 +20,8 @@ public interface Lambda {
 		void e( A a );
 	}
 
-	static void invokeAll( Collection<P1<Object>> procs, Object parm ) {
-		procs.stream().forEach( proc -> proc.e( parm ) );
+	static void invokeAll( Collection<P1<Object>> procs, Object param ) {
+		procs.stream().forEach( proc -> proc.e( param ) );
 	}
 
 }
