@@ -9,6 +9,7 @@ public final class Reflect {
 	private Reflect() {
 	}
 
+	@SuppressWarnings("unchecked")
 	public static <A> A newInstance( Class<A> cla ) {
 		return (A) newInstance4( cla );
 	}
@@ -53,6 +54,7 @@ public final class Reflect {
 		return getFieldValue( getField( field, obj.getClass() ), obj );
 	}
 
+	@SuppressWarnings("unchecked")
 	private static <A> A getFieldValue( Field field, Object obj ) {
 		try {
 			return (A) field.get( obj );
@@ -82,6 +84,7 @@ public final class Reflect {
 		return invoke( methodFound, o, params );
 	}
 
+	@SuppressWarnings("unchecked")
 	private static <T> T invoke( Method method, Object o, Object... params ) {
 
 		try {
