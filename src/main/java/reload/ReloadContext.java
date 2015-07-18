@@ -19,7 +19,6 @@ public class ReloadContext {
 
 	public ReloadContext( String clzName, final String... clzPaths ) {
 		this.clzName = clzName;
-		this.context = context;
 		this.clzLoader = ( ) -> new AggressiveClassLoader( new DynamicClassBytesReader( clzPaths ) );
 	}
 
