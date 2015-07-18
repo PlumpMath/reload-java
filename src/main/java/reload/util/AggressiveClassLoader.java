@@ -43,14 +43,14 @@ public class AggressiveClassLoader extends ClassLoader {
 		Class<?> clz = defineClass( name, bytes, 0, bytes.length );
 		if( clz != null ) {
 			if( clz.getPackage() == null ) {
-				definePackage( packeName( name ), null, null, null, null, null, null, null );
+				definePackage( packageName( name ), null, null, null, null, null, null, null );
 			}
 			resolveClass( clz );
 		}
 		return clz;
 	}
 
-	private String packeName( String name ) {
+	private String packageName( String name ) {
 		return name.replaceAll( "\\.\\w+$", "" );
 	}
 
