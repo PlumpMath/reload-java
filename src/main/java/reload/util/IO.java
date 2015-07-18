@@ -1,6 +1,8 @@
 package reload.util;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class IO {
 
@@ -45,6 +47,7 @@ public final class IO {
 				}
 				closeable.close();
 			} catch( IOException e ) {
+				Logger.getAnonymousLogger().log( Level.FINE, "Ignore closing stream " + closeable, e );
 			}
 		}
 	}
