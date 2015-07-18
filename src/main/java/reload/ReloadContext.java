@@ -11,11 +11,11 @@ import reload.util.Reflect;
 
 public class ReloadContext {
 
-	private String clzName;
-	protected Object context;
+	private final String clzName;
 	private final F<ClassLoader> clzLoader;
 	private final List<P1<Object>> afterCreate = new LinkedList<>();
 	private final List<P1<Object>> beforeClose = new LinkedList<>();
+	protected Object context;
 
 	public ReloadContext( String clzName, final String... clzPaths ) {
 		this.clzName = clzName;

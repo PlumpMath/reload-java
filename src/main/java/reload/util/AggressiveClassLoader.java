@@ -5,8 +5,8 @@ import java.util.Set;
 
 public class AggressiveClassLoader extends ClassLoader {
 
-	protected Set<String> clzLoaded = new HashSet<>();
-	protected Set<String> unavaiClz = new HashSet<>();
+	protected final Set<String> clzLoaded = new HashSet<>();
+	protected final Set<String> unavaiClz = new HashSet<>();
 
 	private final ClassLoader parent = AggressiveClassLoader.class.getClassLoader();
 
