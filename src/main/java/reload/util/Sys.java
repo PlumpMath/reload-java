@@ -12,7 +12,7 @@ public final class Sys {
 	private Sys() {
 	}
 
-	public static String readLine( BufferedReader br ) {
+	private static String readLine( BufferedReader br ) {
 		try {
 			return br.readLine();
 		} catch( IOException e ) {
