@@ -102,7 +102,7 @@ public final class Reflect {
 				return method;
 			}
 		}
-		if( !clazz.equals( Object.class ) ) {
+		if( !clazz.getClass().equals( Object.class ) ) {
 			Class superclass = clazz.getSuperclass();
 			if( superclass != null ) {
 				return getMethod( methodName, superclass );
