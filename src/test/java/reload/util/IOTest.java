@@ -35,7 +35,7 @@ public class IOTest {
 	}
 
 	@Test
-	public void readFile() throws IOException {
+	public void readFile() {
 
 		byte[] data = IO.read( new File( getClass().getResource(
 				getClass().getSimpleName() + ".class" ).getFile() ) );
@@ -45,7 +45,7 @@ public class IOTest {
 	}
 
 	@Test
-	public void readInputStream() throws Exception {
+	public void readInputStream() {
 
 		InputStream is = new ByteArrayInputStream( "data_read".getBytes() );
 
@@ -88,7 +88,7 @@ public class IOTest {
 	}
 
 	@Test
-	public void closeNull() throws Exception {
+	public void closeNull() {
 
 		IO.close( null );
 

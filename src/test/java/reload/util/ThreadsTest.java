@@ -23,7 +23,7 @@ public class ThreadsTest {
 	}
 
 	@Test
-	public void runStrongCallProcedure() throws Exception {
+	public void runStrongCallProcedure() {
 
 		final List<Integer> counter = new ArrayList<>();
 
