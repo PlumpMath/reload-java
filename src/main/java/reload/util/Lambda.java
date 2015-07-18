@@ -4,23 +4,23 @@ import java.util.Collection;
 
 public interface Lambda {
 
-	static interface F<T> {
+	interface F<T> {
 		T e();
 	}
 
-	static interface F1<A, T> {
+	interface F1<A, T> {
 		T e( A a );
 	}
 
-	static interface P {
+	interface P {
 		void e();
 	}
 
-	static interface P1<A> {
+	interface P1<A> {
 		void e( A a );
 	}
 
-	public static void invokeAll( Collection<P1<Object>> procs, Object parm ) {
+	static void invokeAll( Collection<P1<Object>> procs, Object parm ) {
 		procs.stream().forEach( proc -> proc.e( parm ) );
 	}
 
