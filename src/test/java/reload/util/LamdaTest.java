@@ -12,9 +12,7 @@ public class LamdaTest {
 	public void invokeAll() {
 
 		final int[] counter = new int[] { 0 };
-		Lambda.P1<Object> proc = ( number ) -> {
-			counter[0]++;
-		};
+		Lambda.P1<Object> proc = ( number ) -> counter[0]++;
 
 		Lambda.invokeAll( Collections.nCopies( 10, proc ), "" );
 

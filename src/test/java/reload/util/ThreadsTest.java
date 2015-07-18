@@ -27,9 +27,7 @@ public class ThreadsTest {
 
 		final List<Integer> counter = new ArrayList<>();
 
-		Lambda.P proc = ( ) -> {
-			counter.add( 1 );
-		};
+		Lambda.P proc = ( ) -> counter.add( 1 );
 
 		for( int i = 0; i < 10; i++ ) {
 			Threads.runStrong( proc );
