@@ -36,7 +36,7 @@ public class DynamicClassBytesReader implements ClassBytesReader {
 	}
 
 	private String toFilePath( String name ) {
-		return name.replaceAll( "\\.", "/" ) + ".class";
+		return name.replaceAll( "\\.", File.separator ) + ".class";
 	}
 
 	private static File findFile( String child, File parent ) {
